@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-graphql-airtable
+
+  Sample SAM Template for sam-graphql-airtable
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 600
+
+Resources:
+  AirTable:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: api/
+      Handler: app.handler
+      Runtime: nodejs14.x
+      Environment:
+        Variables:
+          AIRTABLE_API_KEY:
+          BASE:
+      Events:
+        AriTableRoot:
+          Type: Api
+          Properties:
+            Path: /graphql
+            Method: ANY
